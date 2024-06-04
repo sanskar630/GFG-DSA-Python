@@ -1,8 +1,9 @@
 #User function Template for python3
 class Solution:
-	def binaryNextNumber(self, s):
-		# code here
-		return bin(int(s, 2) + 1)[2 : ]
+    def binaryNextNumber(self, s):
+        # code here
+        s = int(s, 2)
+        return bin(s +1)[2:]
 
 #{ 
  # Driver Code Starts
