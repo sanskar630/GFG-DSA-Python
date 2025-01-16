@@ -1,6 +1,4 @@
 //{ Driver Code Starts
-// Initial template for C++
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -10,50 +8,64 @@ using namespace std;
 
 class Solution {
   public:
-    vector<long long int> productExceptSelf(vector<long long int>& nums) {
-        int n = nums.size();
-        vector<long long int> front(n + 1, 1);
-        front[n - 1] = nums.back();
-        for(int i = n - 2; i >= 0; i--) {
-            front[i] = front[i + 1]*nums[i];
+   vector<int> productExceptSelf(vector<int>& arr) {
+        // code here
+        int n = arr.size();
+        vector<int> left(n,1),right(n,1);
+        
+        
+        for(int i=1;i<n;i++){
+            left[i] = arr[i-1] * left[i-1];
         }
         
-        long long int prev = 1;
-        vector<long long int> ans;
-        for(int i = 0; i < n; i++) {
-            long long int curr = prev*front[i + 1];
-            ans.push_back(curr);
-            prev *= nums[i];
+        for(int i=n-2;i>=0;i--){
+            right[i] = arr[i+1] * right[i+1];
         }
         
+        vector<int> ans(n,0);
+        for(int i=0;i<n;i++){
+            ans[i] = left[i]*right[i];
+        }
         return ans;
+        
+        
+    
+
+
     }
 };
 
 
-
 //{ Driver Code Starts.
+
 int main() {
-    int t; // number of test cases
+
+    int t;
     cin >> t;
+    cin.ignore();
+
     while (t--) {
-        int n; // size of the array
-        cin >> n;
-        vector<long long int> arr(n), vec(n);
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
 
-        for (int i = 0; i < n; i++) // input the array
-        {
-            cin >> arr[i];
+        while (ss >> number) {
+            arr.push_back(number);
         }
-        Solution obj;
-        vec = obj.productExceptSelf(arr); // function call
 
-        for (int i = 0; i < n; i++) // print the output
-        {
-            cout << vec[i] << " ";
+        Solution obj;
+        vector<int> res = obj.productExceptSelf(arr);
+
+        for (int i = 0; i < res.size(); i++) {
+            cout << res[i] << " ";
         }
         cout << endl;
+        cout << "~\n";
     }
+
     return 0;
 }
+
 // } Driver Code Ends
